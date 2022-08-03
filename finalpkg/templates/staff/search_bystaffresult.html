@@ -1,0 +1,99 @@
+{%extends "staff/doctordashboard.html"%}
+{%block title%}
+All Staff Search
+{%endblock title%}
+
+{%block content%}
+
+<div id="alldept">
+    <div class='row'>
+        <div class="col-12 mb-3">
+            <div class="row pt-3">
+                <div class="col-6"><h2>Staff Search Results</h2></div>
+            </div>
+        </div>
+        <!--Search Table-->
+        <div class="col-12">
+            {%if find%}
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Hospital</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for x in find%}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{x.fname}} {{x.lname}} {{x.othername}}</td>
+                        <td>{{x.stf_hospitle.hosp_name}}</td>
+                        <td>{{x.staffduty.role_name}}</td>
+                        {%if x.staff_role==1%}
+                        <td><a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#sendmessage">Message</a></td>
+                        {%else%}
+                        <td><button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#sendmessage" disabled>Message</button></td>
+                        {%endif%}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            {%else%}
+            {%set staff_not_found=get_flashed_messages(category_filter="no_staff_found")%}
+            {%for not_found in staff_not_found%}
+            <div class="alert alert-danger">{{not_found}}</div>
+            {%endfor%}
+            {%endif%}
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+
+
+
+{%block others%}       
+{#send message#}
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="sendmessage" tabindex="-1" aria-labelledby="sendmsg" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sendmsg">Send Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method='post' action='/sendmessage/'>
+                    <div class="mb-3">
+                        <label class="form-label" for='topic'><strong>Topic</strong></label>
+                        <input class="form-control" id='topic' type='text' name='topic' value="" placeholder="Topic" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for='msg'><strong>Message</strong></label>
+                        <textarea class="form-control" id='msg' name='message' placeholder="Type Your Message" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type='hidden' name='sender' value="{{session.get('staff_id')}}" >
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type='hidden' name='senderhospital' value="{{session.get('staff_hospid')}}" >
+                    </div>
+                    {%for i in find%}
+                    <div class="mb-3">
+                        <input class="form-control" type='hidden' name='receiver' value="{{i.staff_id}}" >
+                    </div>
+                    {%endfor%}
+
+                    <input class="form-control" type='hidden' name='csrf_token' value="{{csrf_token()}}" 
+                    <div class="mb-3">
+                        <button type='submit' class='btn btn-primary btn-sm form-control' id='btnsend'>Send</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock others%}

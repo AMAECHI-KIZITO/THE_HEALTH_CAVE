@@ -1,0 +1,55 @@
+{%extends "staff/doctordashboard.html"%}
+{%block title%}
+All Staff Search
+{%endblock title%}
+
+{%block content%}
+<div class="row">
+    <div class="col-10 offset-1 mt-5">
+        <h3>Find any staff affiliated with THE HEALTH CAVE.</h3>
+
+
+        {%set mails = get_flashed_messages(category_filter='msgsent')%}
+        {%for m in mails%}
+        <div class="alert alert-success">{{m}}</div>
+        {%endfor%}
+
+        {%set badmails = get_flashed_messages(category_filter='bad_sendmsg')%}
+        {%for bad_msg in badmails%}
+        <div class="alert alert-danger">{{bad_msg}}</div>
+        {%endfor%}
+
+
+        <form class="row row-cols-2 mt-5" action='/search_bystaff/' method='post'>
+            <div>
+                <input id='staffno' name='staffno' type='text' class="form-control" placeholder="Type Staff Number or Staff Name" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-warning">Search</button>
+            </div>
+            <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+        </form>
+
+        
+        
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+{#$('#staffno').change(function(){
+    var data2send={'input':$(this).val()}
+    $.ajax({
+        url:"/searchingstaff/",
+        data:data2send,
+        type:"get",
+        dataType:"text",
+        success:function(rsp){
+            $('#staffno').html(rsp)
+        },
+        error:function(errormsg){
+            console.log(errormsg)
+        }
+    })
+})#}
+{%endblock%}

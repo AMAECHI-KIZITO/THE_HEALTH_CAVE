@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>The Health Cave||LOGIN</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='font/css/all.css')}}">
+		<style type="text/css">
+            .firstrow{
+                min-height: 400px;
+                background-image: url("images/slider1.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            #discoverhow{
+                color: #fff;
+            }
+            .loginsection{
+                min-height: 100px;
+            }
+            .know_patients{
+                border-radius: 50%;
+            }
+            .links{
+                text-decoration: none;
+                color: #fff;
+            }
+            .links:hover{
+                background-color: #586f7c;
+                color: #fff;
+            }
+
+            @media screen and (max-width:480px){
+                .action{
+                    display: none;
+                }
+                .THC{
+                    width: 100%;
+                }
+                .firstrow{
+                    color: #fff;
+                }
+            }
+		</style>
+	</head>
+
+
+	<body>		
+		<div class="container-fluid">
+            <!--navigation-->
+            <div class="row sticky-top ">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand brandname" href="/THChomepage/"><img src="{{url_for('static',filename='images/use_this.png')}}" alt="THC logo" width="100px"> </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="/THChomepage/">HOME</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="">ABOUT</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="/login/">LOGIN</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="">BOOK DEMO</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">CLIENTS</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        PRODUCTS
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a class="dropdown-item" href="#">Appointment Reminders</a></li>
+                                            <li><a class="dropdown-item" href="#">Telehealth</a></li>
+                                            <li><a class="dropdown-item" href="#">Digital Registration</a></li>
+                                            <li><a class="dropdown-item" href="#">Patients Payments</a></li>
+                                            <li><a class="dropdown-item" href="#">Healthcare Growth Optimization</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <form>
+                                	<input type="search" placeholder="Search" id="searchfield" name="search">
+                                	<button type="button" class="btn btn-dark" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            	</form>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            
+            
+            <div class="row align-items-center my-3" style="background-color: #000;">
+            	<div class="col-md-6" >
+            		<img src="{{url_for('static',filename='images/doc4.jpg')}}" class="img-fluid" alt="Login page image">
+            	</div>
+            	<div class="col-md-6">
+            		<div class="row pb-4">
+                        <div class="col-12" style="color: #fff;">
+                           <img src="{{url_for('static',filename='images/use_this.png')}}" class="img-fluid" alt="Login page image">
+                           <p>Sign in with your organizational account</p>
+
+                           {%set deny=get_flashed_messages(category_filter='Invalid')%}
+                           {%for x in deny%}
+                           <div class="alert alert-danger">{{x}}</div>
+                           {%endfor%}
+
+                           <form class="mt-3" id="entryportal" action="/THCentryportal/" method="post">
+                               <div class="mb-3">
+                                    <input id="emailaddress" class="form-control" name="email" type="email" placeholder="Email address" required>
+                               </div>
+                               <div class="mb-3 dodge">
+                                    <input id="pswd" class="form-control" name="pswd" type="password" placeholder="Password" required>
+                               </div>
+                               <div class="mb-3 dodge">
+                                    <h4>Login as?</h4>
+                                    <input id="administrator" class="form-check-input" name="cliententry" value="admin" type="radio">
+                                    <label class="form-check-label">Admin</label>
+                                    <input id="staff" class="form-check-input" name="cliententry" value="staff" type="radio">
+                                    <label class="form-check-label">Staff</label>
+                               </div>
+                               <div class="mb-3 dodge">
+                                    <a href="#">Forgot Password?</a>
+                               </div>
+                               <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+                               <button class="btn btn-success dodge" type="submit" id="btnSignIn" onclick="return allow()" disabled>SIGN IN</button>
+                           </form>
+                           <p class="text-center">&copy; Copyright 2022 THC INC. All Rights Reserved</p>
+                        </div>      
+                    </div>            		
+            	</div>
+            </div>
+       	</div>
+
+            
+            
+
+
+
+        <!-- final Div -->
+        {%include 'final_div.html'%}
+
+
+
+
+
+
+
+
+
+        {%autoescape false%}
+		<script type="text/javascript" src="{{url_for('static',filename='jquery/jquery.min.js')}}"></script>
+
+
+		<script type="text/javascript" language="javascript">
+			function allow(){
+                var useremail = document.getElementById('emailaddress').value;
+                var passkey = document.getElementById('pswd').value;
+
+                if(useremail==''||passkey==''){
+                    alert('Ensure all fields are filled');
+                    return false;
+                }
+            }
+			
+
+			$(document).ready(function(){
+				$('#searchfield').hide();
+                $('.dodge').hide();
+
+				$('#search').click(function(){
+					$('#searchfield').toggle();
+				})
+				$('#searchfield').change(function(){
+					$('#search').attr('type', 'submit');
+				})
+
+                $('#emailaddress').change(function(){
+                    $('.dodge').show();
+                })
+                $('[type=radio]').click(function(){
+                    if($(this).prop('checked')==true){
+                        $('#btnSignIn').prop('disabled',false)
+                    }else{
+                        $('#btnSignIn').prop('disabled',true)
+                    }
+                })
+                {#$('#administrator').click(function(){
+                    $('#entryportal').attr('action','/adminpage/')
+                })
+                $('#').click(function(){
+                    $('#entryportal').attr('action','/adminpage/')
+                })#}
+			})
+			
+		</script>
+		<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.bundle.js')}}"></script>	
+        {% endautoescape %}	
+	</body>
+</html>

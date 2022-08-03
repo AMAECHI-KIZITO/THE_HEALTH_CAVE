@@ -1,0 +1,129 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Paediatrics Department
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+    table{
+        font-size: 10px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--peads Dept-->
+<div id="dept_peads">
+    <div class='row'>
+        <div class="col-12 mb-3">
+            <div class="row pt-3">
+                <div class="col-6"><h2>Department of Paediatrics</h2></div>
+            </div>
+        </div>
+        <!--Dept Information-->
+        <div class="col-12">
+            <p>The diversity of developmental age groups of children and the scope of services we provide to promote health, prevent disease/injuries, and cure diseases/injuries in children define the uniqueness of our specialty. Children differ from adults anatomically, physiologically, immunologically, developmentally, and metabolically. Helping them reach their full potential remains our department's ultimate goal. Our specialties include:
+                <ul>
+                    <li>Cardiology</li>
+                    <li>Adolescent Endocrinology</li>
+                    <li>Oncology</li>
+                    <li>Infectious Diseases</li>
+                    <li>Dermatology</li>
+                    <li>Emergency Paediatrics</li>
+                    <li>Nutrition</li>
+                    <li>Neurology</li>
+                    <li>Respiratory</li>
+                    <li>Nephrology</li>
+                </ul>
+            </p>
+        </div>
+        <div class="col-12">
+            <h3>Departmental Email</h3>
+            <p>paediatrics@lasuth.gov.ng</p>
+        </div>
+        <div class="col-12">
+            <h3>Departmental Staff Details</h3>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Full Name</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Dr. Ignatius Obi</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Prof. Abiola Oyebade</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Prof. Olumide Sule</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Dr. Ebun Taiwo</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Dr. Nene Chukwura</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Dr. Veronica Ezeaka</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Prof. Christopher Ojorbor</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Dr. Iretiola Bamikeolu</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Dr. Patricia Yemisi</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Prof. Yeside Amosu</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+
+{%endblock unique_JQ%}

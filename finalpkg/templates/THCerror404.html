@@ -1,0 +1,21 @@
+
+{%extends 'errortemplate.html'%}
+
+{%block error_title%}
+Error 404
+{%endblock error_title%}
+
+{%block mistake%}
+<!--Error 404-->
+<div id="allPatients">
+    <div class='row align-items-center'>
+        <div class="col-md-6">
+            <img class="img-fluid" alt='error404' src="{{url_for('static',filename='images/oath.jpg')}}">
+        </div>
+        <div class="col-md-6">
+            <h3>Looking for this page?.....So are we</h3>
+            <a class="btn btn-secondary" href="/THChomepage/">Back to Homepage</a>
+        </div>
+    </div>
+</div>
+{%endblock mistake%}

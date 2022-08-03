@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>{%block title%}Admin Dashboard{%endblock title%}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='font/css/all.css')}}">
+		<style type="text/css">
+            {%block styling%}
+            .dashboard{
+                background-color: #586f7c;
+                color: #fff;
+            }
+
+
+            @media screen and (max-width:800px){
+                .navbar-toggler{
+                    display: none;
+                }
+            }
+            @media screen and (max-width:425px){
+                #abimbola{
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+            {%endblock styling%}
+		</style>
+	</head>
+
+
+	<body>		
+		<div class="container-fluid">
+            <!--navigation-->
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand brandname" href="/THChomepage/"><img src="{{url_for('static',filename='images/use_this.png')}}" alt="THC logo" width="100px"> </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <button type="button" class="btn btn-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#menu">Menu</button>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    
+                                </ul>
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#menu">Menu</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!--Dashboard side-->
+            <div class="row dashboard align-items-center">
+                <div class="col-md-6">
+                    {%for deets in admininfo%}
+                    <h2>{{deets.admin_hospitle.hosp_name}}</h2>
+                    <h6>Admin Dashboard</h6>
+                    {%endfor%}
+                    {#<p>Welcome {{session.get('admin_name')}}</p>#}
+                </div>
+                {%block admin_only%}
+                <div class="col-md-6 d-md-block">
+                    <p class="text-end"><i class="fa-solid fa-house"></i><span>/<a href="/adminpage/" class="text-light">Admin Dashboard</a></span></p>
+                </div>
+                {%endblock admin_only%}
+            </div>
+
+            <!--Main side-->
+            {%block content%}
+            <div class="row mt-5">
+                <div class="col-md-6">
+                    <div style="background-color:red;">
+                        <h2 class="text-center text-light">{{totalstaff}}</h2>
+                        <h5 class="text-center text-light">Total Staff</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="background-color:blue">
+                        <h2 class="text-center text-light">{{totalpatients}}</h2>
+                        <h5 class="text-center text-light">Total Patients</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-5">
+                    <div style="background-color:green">
+                        <h2 class="text-center text-light">{{CHT}}</h2>
+                        <h5 class="text-center text-light">Total Cross-Hospital Patients</h5>
+                    </div>
+                </div>
+            </div>
+            {%endblock content%}
+        </div>
+            
+            
+            
+            
+            
+
+
+
+        
+
+
+
+
+
+        {%block casesmodal%}
+        {%endblock casesmodal%}
+
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="menu" aria-labelledby="Lasuth">
+            <div class="offcanvas-body">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <img src="{{url_for('static',filename='images/profile.jpeg')}}" id="abimbola" class="img-fluid" alt="Dr Abimbola" style="border-radius: 50%;">
+                    </div>
+                    <div class="col-12">
+                        <h5 class="text-center">{{session.get('admin_name')}}</h5>
+                        <p class="text-center">Admin</p>
+                    </div><hr>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <h6>...MAIN</h6>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <i class="fa-solid fa-house pe-2"></i><a href="/adminpage/" style="color: #586f7c; text-decoration:none">Dashboard</a>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <i class="fa-solid fa-calendar pe-2"></i><a href="/appointments/" style="color: #586f7c; text-decoration: none;">Appointment</a>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <i class="fa-solid fa-user pe-2"></i><a href ="#" id="staff" style="color: #586f7c;text-decoration:none">Staff</a>
+                        <ul id="hidden">
+                            <li><a href="/allstaff/">All Staff</a></li>
+                            <li><a href="/addstaff/">Add Staff</a></li>
+                            <li><a href="/staffsearch/">Search Staff</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <i class="fa-solid fa-user pe-2"></i><a href="#" id="patients" style="color: #586f7c;text-decoration:none">Patients</a>
+                        <ul id="patient_hidden">
+                            <li><a href="/allpatients/">All Patients</a></li>
+                            {#<li><a href="/addpatients/">Add Patient</a></li>#}
+                        </ul>
+                    </div>
+                    {#<div class="col-12 mb-3">
+                        <i class="fa-solid fa-wallet pe-2"></i><a href="#" id="pay" style="color: #586f7c;text-decoration:none">Payments</a>
+                        <ul id="payments_hidden">
+                            <li><a href="">All Payments</a></li>
+                            <li><a href="">Add Payment</a></li>
+                            <li><a href="">Invoice</a></li>
+                        </ul>
+                    </div>#}
+                    <div class="col-12 mb-3">
+                        <i class="fa-solid fa-bookmark pe-2"></i><a href="#" id="dept" style="color: #586f7c;text-decoration:none">Departments</a>
+                        <ul id="dept_hidden">
+                            <li><a href="/departments/">All Departments</a></li>
+                        </ul>
+                    </div>
+                    {#<div class="col-12 mb-3">
+                        <i class="fa-solid fa-bookmark pe-2"></i><a href="#" id="secure" style="color: #586f7c;text-decoration:none">Authentication</a>
+                        <ul id="secure_hidden">
+                            <li><a href="">Sign In</a></li>
+                            <li><a href="">Sign Up</a></li>
+                            <li><a href="">Forgot Password</a></li>
+                            <li><a href="">Locked Screen</a></li>
+                        </ul>
+                    </div>#}
+                    <div class="col-12 mb-3">
+                        <h6>...EXTRA COMPONENTS</h6>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <i class="fa-solid fa-bars pe-2"></i><a href="#" id="apps" style="color: #586f7c;text-decoration:none">Hospital Info</a>
+                        <ul id="app_hidden">
+                            <li><a href="/updatehospitalinfo/">Register Hospital Deparments</a></li>
+                            <li><a href="/admin/register/labs/">Register Hospital Labs</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <i class="fa-solid fa-gear pe-2"></i><a href="#" id='settings' style="color: #586f7c; text-decoration:none">Settings</a>
+                        <ul id='hidesettings'>
+                            <li><a href="/adminchangepassword/">Change Password</a></li>
+                            <li><a href="/adminchangephone/">Change Phone Number</a></li>
+                        </ul>
+                    </div>
+                    {#<div class="col-12 mb-3">
+                        <i class="fa-solid fa-file pe-2"></i><a href="#" id="file" style="color: #586f7c; text-decoration:none">File Manager</a>
+                        <ul id="file_hidden">
+                            <li><a href="#">All Files</a></li>
+                        </ul>
+                    </div>#}
+                    <div class="col-12 mb-3">
+                        <i class="fa-solid fa-power-off pe-2"></i><a href="/adminlogout/" style="color: #586f7c; text-decoration: none;">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        {%autoescape false%}
+		<script type="text/javascript" src="{{url_for('static',filename='jquery/jquery.min.js')}}"></script>
+
+
+		<script type="text/javascript" language="javascript">
+            {#{%block register%}
+			function registerstaff(){
+                var phonenumlength=document.getElementById('phone').value.length;
+                var nationality=document.getElementById('country').value
+                var origin=document.getElementById('state').value
+                if(phonenumlength != 11){
+                    
+                    alert('Invalid Nigerian Phone Number length')
+                }else if(nationality==153 and origin ==38){
+                    
+                    alert('Please select a Nigerian state of origin for this staff you are trying to register')
+                }else if(nationality!=153 and origin !=38){
+                    
+                    alert('Foreigners cannot have a Nigerian state of origin')
+                }else if(nationality!=153 and origin =='#'){
+                    
+                    alert('Please select valid state of origin')
+                }else{
+                    document.getElementById('addStaff').type='submit'
+                }
+            }
+			{%endblock%}#}
+
+			$(document).ready(function(){
+				$('#hidden').hide();
+                $('#patient_hidden').hide();
+                $('#payments_hidden').hide();
+                $('#dept_hidden').hide();
+                $('#app_hidden').hide();
+                $('#file_hidden').hide();
+                $('#secure_hidden').hide();
+                $('#hidesettings').hide();
+                
+                
+                // The dashbord nav shortcut jquery
+                $('#staff').click(function(){
+                    $('#hidden').toggle();
+                })
+                $('#patients').click(function(){
+                    $('#patient_hidden').toggle();
+                })
+                $('#pay').click(function(){
+                    $('#payments_hidden').toggle();
+                })
+                $('#dept').click(function(){
+                    $('#dept_hidden').toggle();
+                })
+                $('#apps').click(function(){
+                    $('#app_hidden').toggle();
+                })
+                $('#file').click(function(){
+                    $('#file_hidden').toggle();
+                })
+                $('#secure').click(function(){
+                    $('#secure_hidden').toggle();
+                })
+                $('#settings').click(function(){
+                    $('#hidesettings').toggle()
+
+                });
+
+                {%block unique_JQ%}
+                {%endblock unique_JQ%}
+			})
+			
+		</script>
+		<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.bundle.js')}}"></script>	
+        {%endautoescape%}
+	</body>
+</html>

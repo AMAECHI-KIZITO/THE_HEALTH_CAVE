@@ -1,0 +1,49 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Departments List
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--Add Dept-->
+<div id="add_dept">
+    <div class='row'>
+        <div class="col-12">
+            <h2>Add Department</h2>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-md-6 offset-md-3">
+            <form action='' method='post'>
+                <div class="mt-4">
+                    <label class='form-label'><b>Department Name</b></label>
+                    <input type='text' class="form-control" required>
+                </div>
+                <button type="submit" class='btn btn-warning mt-4 col-md-1 offset-md-5'>Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+{%endblock unique_JQ%}

@@ -1,0 +1,99 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Departments List
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--All Dept-->
+<div id="alldept">
+    <div class='row'>
+        {%set dept=get_flashed_messages(category_filter='added_dept')%}
+        {%for D in dept%}
+        <div class='alert alert-success'>{{D}}</div>
+        {%endfor%}
+        <div class="col-12 mb-3">
+            <div class="row pt-3">
+                <div class="col-6"><h2>Department and Laboratory List</h2></div>
+            </div>
+        </div>
+        <!--Dept Table-->
+        <div class="col-6">
+            <h2>Deparments</h2>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Dept Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for x in HD%}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{x.facility.dept_name}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <!--Labs Table-->
+        <div class="col-6">
+            <h2>Laboratories</h2>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Dept Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for x in HL%}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{x.Hospital_Labs.lab_name}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+$('#deltaPatients').click(function(){
+    $('.lagos').hide();
+    $('.enugu').hide();
+    $('.delta').show();
+})
+$('#enuguPatients').click(function(){
+    $('.lagos').hide();
+    $('.enugu').show();
+    $('.delta').hide();
+})
+$('#lagosPatients').click(function(){
+    $('.lagos').show();
+    $('.enugu').hide();
+    $('.delta').hide();
+})
+{%endblock unique_JQ%}

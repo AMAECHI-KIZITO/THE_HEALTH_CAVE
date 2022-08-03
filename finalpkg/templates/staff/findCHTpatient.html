@@ -1,0 +1,27 @@
+{%extends "staff/doctordashboard.html"%}
+{%block title%}
+{%for stf_title in staffinfo%}
+{%if stf_title.staff_role==1%}
+Doctor|Find Patient
+{%else%}
+Nurse |Find Patient
+{%endif%}
+{%endfor%}
+{%endblock title%}
+
+{%block content%}
+<div class="row">
+    <div class="col-10 offset-1 mt-5">
+        <h3>Make Treatment Borderless With The Health Cave Borderless Patient Search </h3>
+        <form class="row row-cols-2 mt-5" action='/searchpatient/' method='post'>
+            <div>
+                <input id='patient_no' name='patient_no' type='text' class="form-control" placeholder="Type Patient Number">
+            </div>
+            <div>
+                <button type="submit" id="btnsearchpatient" class="btn btn-warning">Search</button>
+            </div>
+            <input type="hidden" name="csrf_token" class="form-control" id='csrf' value="{{csrf_token()}}">
+        </form>
+    </div>
+</div>
+{%endblock content%}

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>{%block title%}Nurse Dashboard{%endblock title%}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='font/css/all.css')}}">
+		<style type="text/css">
+            {%block styling%}
+            .dashboard{
+                background-color: #586f7c;
+                color: #fff;
+            }
+
+
+            @media screen and (max-width:800px){
+                .navbar-toggler{
+                    display: none;
+                }
+            }
+            @media screen and (max-width:425px){
+                #abimbola{
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+            {%endblock styling%}
+		</style>
+	</head>
+
+
+	<body>		
+		<div class="container-fluid">
+            <!--navigation-->
+            <div class="row sticky-top ">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand brandname" href="/THChomepage/"><img src="{{url_for('static',filename='images/use_this.png')}}" alt="THC logo" width="100px"> </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <button type="button" class="btn btn-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#menu">Menu</button>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    
+                                </ul>
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#menu">Menu</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <!--Dashboard side-->
+            <div class="row dashboard align-items-center">
+                <div class="col-md-6">
+                    {%for i in staffinfo%}
+                    <h2>{{i.stf_hospitle.hosp_name}}</h2>
+                    {%endfor%}
+                    <p>Welcome Nurse {{session.get('staff_name')}}</p>
+                </div>
+                <div class="col-md-6 d-md-block">
+                    <p class="text-end"><i class="fa-solid fa-house"></i><span>/<a  class="text-light">Staff Dashboard</a></span></p>
+                </div>
+            </div>
+
+            <!--Main side-->
+            {%block content%}
+            <div class="row">
+                <div class="col-12">
+                    <!-- Appointment table -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Today's Appointment</h4>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>S/N</th> <!--This will have loop.index-->
+                                <th>Patient Number</th>
+                                <th>Patient Name</th>
+                                <th>Patient Profile</th> <!--This should lead to the patient profile where the doc will see a cases/consultations table with add new consult-->
+                                <th>Send to Consult</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for a in appt%}
+                            {%set no = a.patient_deets.firstname%}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{a.patient_deets.patient_number}}</td>
+                                <td>{{a.patient_deets.firstname}} {{a.patient_deets.lname}}</td>
+                                <td><a href='/patientprofile/{{a.patient_deets.patient_number}}'>View Profile</a></td>
+
+                                <td>
+                                    
+                                    <button type="button" id='{{a.patient_deets.patient_number}}' class="btn btn-secondary btn-sm" onclick="
+                                       
+                                        if(confirm('Hello, please confirm the sending of this patient to the consulting room')==true){
+                                            $('#{{a.patient_deets.patient_number}}').removeClass('btn-secondary')
+                                            $('#{{a.patient_deets.patient_number}}').addClass('btn-success')
+                                            $('#{{a.patient_deets.patient_number}}').text('Sent')
+                                            $('#{{a.patient_deets.patient_number}}').prop('disabled',true)
+                                            
+                                        }
+
+                                    ">Send</button>
+                                    
+                                </td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--Surgeries-->
+                <div class="col-12">
+                    <!-- Surgery table -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Surgery Schedule</h4>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Patient Name</th>
+                                <th>Patient Number</th>
+                                <th>Procedure</th>
+                                <th>Patient Profile</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for surgery in todaysurgery%}
+                            <tr>
+                                <td>{{surgery.surgery_patient_info.firstname}} {{surgery.surgery_patient_info.lname}}</td>
+                                <td>{{surgery.surgery_patient_info.patient_number}}</td>
+                                <td>{{surgery.procedure_name}}</td>
+                                <td><a href='/patientprofile/{{surgery.surgery_patient_info.patient_number}}'>View Profile</a></td>
+                            </tr>
+                            {%endfor%}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {%endblock content%}
+        </div>
+            
+            
+            
+            
+            
+
+
+
+        
+
+
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="menu" aria-labelledby="Lasuth">
+            <div class="offcanvas-header" style="background-color: #586f7c;">
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="row">
+                    <div class="col-12  mb-4">
+                        <i class="fa-solid fa-house pe-2"></i><a href="/nurse_dashboard/">Home</a>
+                    </div>
+                    <div class="col-12  mb-4">
+                        <i class="fa-solid fa-user pe-2"></i><a href="/Register/Patient/">Register Patient</a>
+                    </div>
+                    <div class="col-12  mb-4">
+                        <i class="fa-solid fa-magnifying-glass pe-2"></i><a href="/findpatient/">Find Patient</a>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <i class="fa-solid fa-gear pe-2"></i><a href="#" id='settings'>Settings</a>
+                        <ul id='hidesettings'>
+                            <li><a href="/nursechangepassword/">Change Password</a></li>
+                            <li><a href="/nursechangephone/">Change Phone Number</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12  mb-4">
+                        <i class="fa-solid fa-power-off pe-2"></i><a href="/stafflogout/">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+
+
+        {%autoescape false%}
+		<script type="text/javascript" src="{{url_for('static',filename='jquery/jquery.min.js')}}"></script>
+
+
+		<script type="text/javascript" language="javascript">
+			
+            
+			$(document).ready(function(){
+				$('#hidesettings').hide();
+                $('#settings').click(function(){
+                    $('#hidesettings').toggle()
+
+                });
+                {%block unique_JQ%}
+                
+                {%endblock unique_JQ%}
+			})
+			
+		</script>
+		<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.bundle.js')}}"></script>	
+        {%endautoescape%}
+	</body>
+</html>

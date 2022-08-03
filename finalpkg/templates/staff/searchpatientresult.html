@@ -1,0 +1,49 @@
+{%extends "staff/doctordashboard.html"%}
+{%block title%}
+All Patient Search
+{%endblock title%}
+
+
+{%block content%}
+
+<div id="alldept">
+    <div class='row'>
+        <div class="col-12 mb-3">
+            <div class="row pt-3">
+                <div class="col-6"><h2>Patient Search Results</h2></div>
+            </div>
+        </div>
+        <!--Search Table-->
+        <div class="col-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Hospital</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for x in find%}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{x.firstname}} {{x.lname}} {{x.othername}}</td>
+                        <td>{{x.patienthospital.hosp_name}}</td>
+                        <td><a href="/patientprofile/{{x.patient_number}}" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            {%set no_patient=get_flashed_messages(category_filter='no_patient_found')%}
+            {%for j in no_patient%}
+            <div class="alert alert-danger">{{j}}</div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+
+
+

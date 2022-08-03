@@ -1,0 +1,73 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Register Hospital Departments
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--Update Hospital Profile-->
+{%set labscimissing =get_flashed_messages(category_filter='labsciabsent')%}
+{%for za in labscimissing%}
+<div class="alert alert-danger">{{za}}</div>
+{%endfor%}
+<div id="add_dept">
+    <div class='row'>
+        <div class="col-12">
+            <h2>Hospital Update Page</h2>
+            
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-12">
+            <form action='/updatehospital/' method='post'>
+                <div class="mt-3">
+                    <h5>Add Departments</h5>
+                    {%set NA =get_flashed_messages(category_filter='dept_not_added')%}
+                    {%for oops in NA%}
+                    <div class="alert alert-danger">{{oops}}</div>
+                    {%endfor%}
+
+                    {%set alreadyexisting =get_flashed_messages(category_filter='existing')%}
+                    {%for z in alreadyexisting%}
+                    <div class="alert alert-danger">{{z}}</div>
+                    {%endfor%}
+
+
+                    {%for x in alldepts%}
+                    <input type='checkbox' class='form-check-input all' name='depts' value="{{x.dept_id}}">
+                    <label class='form-check-label'>{{x.dept_name}}</label><br>
+                    {%endfor%}
+
+                    
+                    <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+                </div>
+                <button type="submit" id="btnupdate" class='btn btn-warning mt-4 col-md-1 offset-md-5'>Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+
+{#$('#btnupdate').prop("disabled",true)#}
+{%endblock unique_JQ%}

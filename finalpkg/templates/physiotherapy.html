@@ -1,0 +1,91 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Physiotherapy Department
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+    table{
+        font-size: 10px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--dept phsio-->
+<div id="dept_phsio">
+    <div class='row'>
+        <div class="col-12 mb-3">
+            <div class="row pt-3">
+                <div class="col-6"><h2>Department of Physiotherapy</h2></div>
+            </div>
+        </div>
+        <!--Dept Information-->
+        <div class="col-12">
+            <p>The Pysiotherary department is involved in the day to day management and treatment of both in and outpatients who require physical therapy. We manage patients from the following areas of specialty:
+                <ul>
+                    <li>Women health</li>
+                    <li>Child health paediatrics</li>
+                    <li>Neurology</li>
+                    <li>Trauma/Orthopaedic</li>
+                    <li>Emergency</li>
+                    <li>Surgical (Pre and Post)</li>
+                    <li>General rehabilitation</li>
+                </ul>
+            </p>
+        </div>
+        <div class="col-12">
+            <h3>Departmental Email</h3>
+            <p>physiotherapy@lasuth.gov.ng</p>
+        </div>
+        <div class="col-12">
+            <h3>Departmental Staff Details</h3>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Full Name</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Dr. Max Oniwanne</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Dr. Toluwanimi Tomiwa</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Dr. John Joel</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+
+{%endblock unique_JQ%}

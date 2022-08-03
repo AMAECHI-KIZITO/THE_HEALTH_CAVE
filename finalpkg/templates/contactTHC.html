@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>The Health Cave||Contact</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='font/css/all.css')}}">
+		<style type="text/css">
+            .firstrow{
+                min-height: 400px;
+                background-image: url("{{url_for('static',filename='images/slider1.jpg')}}");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            #discoverhow{
+                color: #fff;
+            }
+            .loginsection{
+                min-height: 100px;
+            }
+            .know_patients{
+                border-radius: 50%;
+            }
+            .links{
+                text-decoration: none;
+                color: #fff;
+            }
+            .links:hover{
+                background-color: #586f7c;
+                color: #fff;
+            }
+
+            @media screen and (max-width:480px){
+                .action{
+                    display: none;
+                }
+                .THC{
+                    width: 100%;
+                }
+                .firstrow{
+                    color: #fff;
+                }
+            }
+		</style>
+	</head>
+
+
+	<body>		
+		<div class="container-fluid">
+            <!--navigation-->
+            <div class="row sticky-top ">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand brandname" href="/THChomepage/"><img src="{{url_for('static',filename='images/use_this.png')}}" alt="THC logo" width="120px"> </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="/THChomepage/">HOME</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">ABOUT</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="/login/">LOGIN</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">BOOK DEMO</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">CLIENTS</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        PRODUCTS
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a class="dropdown-item" href="#">Appointment Reminders</a></li>
+                                            <li><a class="dropdown-item" href="#">Telehealth</a></li>
+                                            <li><a class="dropdown-item" href="#">Digital Registration</a></li>
+                                            <li><a class="dropdown-item" href="#">Patients Payments</a></li>
+                                            <li><a class="dropdown-item" href="#">Patient Reviews</a></li>
+                                            <li><a class="dropdown-item" href="#">Healthcare Growth Optimization</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <form>
+                                	<input type="search" placeholder="Search" id="searchfield" name="search">
+                                	<button type="button" class="btn btn-dark" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            	</form>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <!--Contact Us-->
+            <div class="row">
+            	<div class="col-12">
+            		<h1>Contact Us</h1>
+            		<p style="font-size:25px">Drop us a line. We're here to help and answer any questions you might have.</p>
+            		<p style="font-size:25px">We'll reach out to you soon.</p>
+            	</div>
+            </div>
+            <div class="row align-items-center">
+            	<div class="col-md-6">
+            		<img src="{{url_for('static',filename='images/logo.png')}}" class="img-fluid">
+            	</div>
+            	<div class="col-md-6">
+            		<form action="/submitcontact/" method="post">
+                        {%set sent=get_flashed_messages(category_filter='contact')%}
+                        {%for i in sent%}
+                        <div class='alert alert-success'>{{i}}</div>
+                        {%endfor%}
+
+                        {#For Not sent form#}
+                        {%set n_sent=get_flashed_messages(category_filter='notsent')%}
+                        {%for x in n_sent%}
+                        <div class='alert alert-danger'>{{x}}</div>
+                        {%endfor%}
+
+            			<div class="mb-3">
+            				<label for="firstname" class="form-label">First Name</label>
+            				<input id="firstname" class="form-control" name="firstname" type="text" required>
+            			</div>
+            			<div class="mb-3">
+            				<label for="lastname" class="form-label">Last Name</label>
+            				<input id="lastname" class="form-control" name="lastname" type="text" required>
+            			</div>
+            			<div class="mb-3">
+            				<label for="orgname" class="form-label">Organization Name</label>
+            				<input id="orgname" class="form-control" name="orgname" type="text" required>
+            			</div>
+            			<div class="mb-3">
+            				<label for="email" class="form-label">Email</label>
+            				<input id="email" class="form-control" name="email" type="email" required>
+            			</div>
+            			<div class="mb-3">
+            				<label for="phone" class="form-label">Telephone</label>
+            				<input id="phone" class="form-control" name="phone" type="text" required>
+            			</div>
+            			<div class="mb-3">
+            				<label for="message" class="form-label">How can we help you</label>
+            				<textarea id="message" class="form-control" name="message" type="text" required></textarea>
+            			</div>
+                        <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+
+            			<button class="btn btn-primary mb-3" type="submit" id="talk" style="border-radius:30px" onclick="validate(event)">Talk to Us</button>
+            		</form>
+            		<p>Your privacy is important to us. Submission of this form is subject to The Health Cave <a href="#">User Agreement</a> and <a href="#">Privacy Policy</a>.</p>
+            	</div>
+            </div>
+       	</div>
+
+            
+            
+
+
+
+        <!-- final Div -->
+        {%include 'final_div.html'%}
+
+
+
+
+
+
+
+
+
+        {%autoescape false%}
+		<script type="text/javascript" src="{{url_for('static',filename='jquery/jquery.min.js')}}"></script>
+
+
+		<script type="text/javascript" language="javascript">
+			function validate(e){
+				var FNAME = document.getElementById('firstname').value;
+				var LNAME = document.getElementById('lastname').value;
+				var EMAIL = document.getElementById('email').value;
+				var TEL = document.getElementById('phone').value;
+				var ORGNAME = document.getElementById('orgname').value;
+				var MESSAGE = document.getElementById('message').value;
+
+				if(FNAME=='' || LNAME==''|| EMAIL==''|| TEL==''|| MESSAGE==''){
+					alert("Kindly fill out all fields");
+					e.preventDefault()
+				}
+			}
+			
+
+			$(document).ready(function(){
+				$('#searchfield').hide();
+
+				$('#search').click(function(){
+					$('#searchfield').toggle()
+				})
+
+				$('#searchfield').change(function(){
+					$('#search').attr('type', 'submit')
+				})
+			})
+			
+		</script>
+		<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.bundle.js')}}"></script>
+        {%endautoescape%}		
+	</body>
+</html>

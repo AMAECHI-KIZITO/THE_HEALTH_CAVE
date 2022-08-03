@@ -1,0 +1,113 @@
+{%extends "patientprofile.html"%}
+{%block title%}
+Patient Cases
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+[alt="malepatient"]{
+    border: 2px solid black;
+    border-radius: 50%;
+}
+.patient_info{
+    border: none;
+    border-bottom: 1px solid black;
+}
+body{
+    background-color: #ECE8D9;
+}
+.report{
+    text-decoration: underline;
+}
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+    .fa-brands{
+        font-size: 9px;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+    .fa-brands{
+        font-size: 10px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<div class="row">
+    <div class="col-12">
+        <h5>Patient Name: {{casenote.conpatient.firstname}} {{casenote.conpatient.lname}}</h5>
+        <h5>Date of Consultation: {{casenote.conappt.date_of_appt}}</h5>
+        <h5>Hospital: {{casenote.con_hosp.hosp_name}}</h5>
+        <h5>Physician: Dr. {{casenote.con_staff.fname}} {{casenote.con_staff.lname}}</h5>
+    </div>
+</div><hr>
+<div class="row">
+    <div class="col-12">
+        <h4>Patient Complaint:</h4>
+        <p>{{casenote.patient_complain}}</p>
+    </div>
+    <div class="col-12">
+        <h4>Diagnosis:</h4>
+        <p>{{casenote.diagnosis}}</p>
+    </div>
+    <div class="col-12">
+        <h4>Action Plan:</h4>
+        <p>{{casenote.course_of_action}}</p>
+    </div>
+</div>
+{%endblock content%}
+
+
+
+{%block casesmodal%}
+
+
+{%endblock casesmodal%}
+
+
+{%block appointments%}
+
+{%endblock appointments%}
+
+
+{%block CHT%}
+
+{%endblock CHT%}
+
+
+
+{%block surgery%}
+
+{%endblock surgery%}
+
+
+
+{%block updatesurgery%}
+
+{%endblock updatesurgery%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%block scripts%}
+
+{%endblock scripts%}

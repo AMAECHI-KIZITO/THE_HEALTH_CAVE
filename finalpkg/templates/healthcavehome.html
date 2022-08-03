@@ -1,0 +1,302 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>The Health Cave||Home</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='font/css/all.css')}}">
+		<style type="text/css">
+            .firstrow{
+                min-height: 400px;
+                background-image: url("{{url_for("static",filename="images/slider1.jpg")}}");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            #discoverhow{
+                color: #fff;
+                background-color: #586f7c;
+            }
+            .click{
+                background-color: #586f7c;
+            }
+            .loginsection{
+                min-height: 100px;
+            }
+            .know_patients{
+                border-radius: 50%;
+            }
+            .links{
+                text-decoration: none;
+                color: #fff;
+            }
+            .links:hover{
+                background-color: #586f7c;
+                color: #fff;
+            }
+
+            @media screen and (max-width:480px){
+                .action{
+                    display: none;
+                }
+                .THC{
+                    width: 100%;
+                }
+                .firstrow{
+                    color: #fff;
+                }
+            }
+		</style>
+	</head>
+
+
+	<body>		
+		<div class="container-fluid">
+            <!--navigation-->
+            <div class="row sticky-top ">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand brandname" href="/THChomepage/"><img src="{{url_for('static',filename='images/use_this.png')}}" alt="THC logo" width="120px"> </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="/THChomepage/">HOME</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">ABOUT</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active d-lg-none" href="/login/">LOGIN</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active d-lg-none" href="#">BOOK DEMO</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">CLIENTS</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        PRODUCTS
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a class="dropdown-item" href="#">Appointment Reminders</a></li>
+                                            <li><a class="dropdown-item" href="#">Telehealth</a></li>
+                                            <li><a class="dropdown-item" href="#">Digital Registration</a></li>
+                                            <li><a class="dropdown-item" href="#">Patients Payments</a></li>
+                                            <li><a class="dropdown-item" href="#">Patient Reviews</a></li>
+                                            <li><a class="dropdown-item" href="#">Healthcare Growth Optimization</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <form>
+                                    <input type="search" placeholder="Search" id="searchfield" name="search">
+                                    <button type="button" class="btn btn-dark" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <!--This side is for the first row containing discover how link-->
+            <div class="row firstrow align-items-center">
+                <div class="col-md-6 offset-md-6">
+                    <h1>Better Patient engagement drives better outcomes.</h1>
+                    <br>
+                    <p>Create seamless patient experiences through data driven insights.</p>
+                    <br>
+                    <a href="#" class="btn" id="discoverhow" style="border-radius: 30px;">Discover how <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!--The login row-->
+            <div class="row loginsection align-items-center">
+                <div class="col-md-4 THC">
+                   <img src="{{url_for('static',filename='images/thehealthcave.png')}}" alt="Our brand" class="img-fluid"> 
+                </div>
+                <div class="col-md-8 justify-content-center action">
+                    <div class="row">
+                        <div class="col">
+                            <h4>See how we are making it easier to run a thriving healthcare business</h4>
+                            <button type="button" class="btn click" style="color:#fff" data-bs-target="#demo" data-bs-toggle="modal">Book a demo</button>
+                        </div>
+                        <div class="col">
+                            <h4>Client Login</h4><br>
+                            <a href="/login/" type="button" id="btnLogin" class="btn click" style="color:#fff">Login</a>
+                        </div>
+                    </div>                 
+                </div>     
+            </div><hr>
+
+
+            <!--Know your patients-->
+            <div class="row">
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <h1 class="text-center">Know everything there's to know about your patients</h1>
+                        <p class="text-center">By tracking their activities and collecting data from other healthcare organizations</p>
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center" style="background-color: #586f7c; color:#fff">
+                    <div class="col-4">
+                        <img src="{{url_for('static',filename='images/IT_doc.jpg')}}" alt="capture patients electronically" class="img-fluid know_patients">
+                    </div>
+                    <div class="col-8">
+                        <h2 class="text-start">Automated Patient Admission</h2>
+                        <p class="text-start">Increase your patient intake by capturing them electronically. The Health Cave allows you to automate appointments and distribute important leads to the right departments so that no lead goes unattended</p>
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <div class="col-8">
+                        <h2 class="text-start">Patient Communication</h2>
+                        <p class="text-start">Initiating relevant, personalized, and contextual patient communication has never been easier. We allow you to follow your patient's journey at their different stages and then set up relevant appointments to trigger important conversations.</p>
+                    </div>
+                    <div class="col-4">
+                        <img src="{{url_for('static',filename='images/doc1.jpg')}}" alt="patients communication" class="img-fluid know_patients">
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center" style="background-color: #586f7c; color:#fff">
+                    <div class="col-4">
+                        <img src="{{url_for('static',filename='images/doc2.jpg')}}" alt="capture patients electronically" class="img-fluid know_patients">
+                    </div>
+                    <div class="col-8">
+                        <h2 class="text-start">Easy Referrals</h2>
+                        <p class="text-start">The Health cave allows a paperless system of referring patients which is easy and trackable.</p>
+                    </div>
+                </div>
+                <div class="row mt-3 align-items-center">
+                    <div class="col-8">
+                        <h2 class="text-start">Reduce Costs</h2>
+                        <p class="text-start">The Health Cave is Incredibly cost-effective flexible. By offering an architecture that connects healthcare systems, we help them achieve round the clock engagement between patients and their providers by eliminating the waiting time.</p>
+                    </div>
+                    <div class="col-4">
+                        <img src="{{url_for('static',filename='images/posgirl.jpg')}}" alt="Reducing Costs" class="img-fluid know_patients">
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+
+
+
+        <!-- final Div -->
+        {%include 'final_div.html'%}
+
+
+
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="demo" tabindex="-1" aria-labelledby="book_A_demo" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="book_A_demo">Request a free demo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id='demomsgstatus'></div>
+                        <p>Please complete the form below so we can contact you with more information about how The Health Cave can help galvanize your organization's practice</p>
+
+                        <form id="demorequest">
+                            <div class="mb-3">
+                                <input type="text" id="first_Name" name="firstname" class="form-control" placeholder="First Name*" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" id="last_Name" name="lastname" class="form-control" placeholder="Last Name*" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Email*" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" id="org_name" name="organization_name" class="form-control" placeholder="Institution Name*" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" id="employee" name="range_of_employees" class="form-control" placeholder="Employee Range*" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone*" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea id="message" name="demomessage" class="form-control" placeholder="Your Requirements" required></textarea>
+                            </div>
+                            <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+                            <button type="button" class="btn btn-primary form-control" id="demoSubmit">Request a Demo</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <p>By submitting my email address above, I acknowledge that The Health Cave may use my information as described in its Privacy Policy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {%autoescape false%}
+		<script type="text/javascript" src="{{url_for('static',filename='jquery/jquery.min.js')}}"></script>
+
+
+		<script type="text/javascript" language="javascript">
+			
+			$(document).ready(function(){
+                $('#searchfield').hide();
+
+                $('#search').click(function(){
+                    $('#searchfield').toggle()
+                })
+
+                $('#searchfield').change(function(){
+					$('#search').attr('type', 'submit');
+				})
+
+                $('#demoSubmit').click(function(){
+                    var form = document.getElementById('demorequest')
+                    var formdata= new FormData(form)
+                
+                    $.ajax({
+                        url:'/bookdemorequest/',
+                        data:formdata,
+                        dataType:"text",
+                        type:"post",
+                        cache:false,
+                        processData:false,
+                        contentType:false,
+                        beforeSend:function(){
+                            if( $('#first_Name').val()=="" || $('#last_Name').val()=="" || $('#email').val()=="" || $('#org_name').val()=="" || $('#phone').val()=="" || $('#employee').val()=="" || $('#demomessage').val()==""){
+                                alert("Please complete the form fields")
+                                return false;
+                            }
+                        },
+                        success:function(rsp){
+                            if (rsp == "Message Sent"){
+                                $('#demomsgstatus').addClass('alert alert-success')
+                                $('#demomsgstatus').html(rsp)
+                                $('#demoSubmit').prop('disabled',true)
+                            }
+                            else{
+                                $('#demomsgstatus').removeClass('alert alert-success')
+                                $('#demomsgstatus').addClass('alert alert-danger')
+                                $('#demomsgstatus').html(rsp)
+                            }
+                                
+                        },  
+                        error:function(msg){
+                            console.log(msg)
+                        }
+                    })
+                })
+            })
+			
+		</script>
+		<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.bundle.js')}}"></script>	
+        {%endautoescape%}	
+	</body>
+</html>

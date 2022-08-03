@@ -1,0 +1,737 @@
+{%extends "patientprofile.html"%}
+{%block title%}
+Patient Profile
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+[alt="malepatient"]{
+    border: 2px solid black;
+    border-radius: 50%;
+}
+.patient_info{
+    border: none;
+    border-bottom: 1px solid black;
+}
+body{
+    background-color: #ECE8D9;
+}
+.report{
+    text-decoration: underline;
+}
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+    .fa-brands{
+        font-size: 9px;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+    .fa-brands{
+        font-size: 10px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--patient profile-->
+{%for p in thispatient%}
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <img src="{{url_for('static',filename='images/male.jpg')}}" alt="malepatient" class="img-fluid col-md-6 offset-md-3">
+                <h5 class="text-center">{{p.firstname}} {{p.lname}} {{p.othername}}</h5>
+            </div>
+        </div>
+    </div>
+</div><hr>
+<div class="row">
+    <div class="col-12">
+        <h4>Patient information</h4>
+        <form class="row row-cols-md-4 mt-3">
+            <div class="col-12 mb-3">
+                <label class="form-label"><b>Gender:</b></label>
+                <input type="text" class="form-control patient_info" value="{{p.patient_gender}}" style="background-color: white;" readonly>
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label"><b>Phone Number:</b></label>
+                <input type="text" class="form-control patient_info" value="{{p.patient_phone}}" style="background-color: white;" readonly>
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label"><b>Nationality:</b></label>
+                <input type="text" class="form-control patient_info" value="{{p.patientcountry.country_name}}" style="background-color: white;" readonly>
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label"><b>State of Origin:</b></label>
+                <input type="text" class="form-control patient_info" value="{{p.patientstate.state_name}}" style="background-color: white;" readonly>
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label"><b>Patient Number</b></label>
+                <input type="text" class="form-control patient_info" value="{{p.patient_number}}" style="background-color: white;" readonly>
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label"><b>Date of Birth</b></label>
+                <input type="text" class="form-control patient_info" value="{{p.patient_dob}}" style="background-color: white;" readonly>
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label"><b>Date of Registration</b></label>
+                <input type="text" class="form-control patient_info" value="{{p.date_reg}}" style="background-color: white;" readonly>
+            </div>
+            <div class="col-12 mb-3">
+                <label class="form-label"><b>Address</b></label>
+                <textarea class="form-control patient_info" placeholder="{{p.patient_address}}" style="background-color: white;" readonly></textarea>
+            </div>                      
+        </form>
+    </div>
+</div><hr>
+{%endfor%}
+
+<div class="row">
+    <div class="col-lg-6">
+        <!-- Appointment table -->
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Appointments</h4>
+            </div>
+            <div class="col-md-6">
+                {%for m in thispatient%}
+                {%if m.patient_hospitle_id == session.get('staff_hospid') and session.get("staff_role")==1%}
+                <button type='button' class="btn btn-secondary" data-bs-target='#new_appt' data-bs-toggle='modal'>Add Appointment</button>
+                {%else%}
+                <button type='button' class="btn btn-secondary" data-bs-target='#new_appt' data-bs-toggle='modal' disabled>Add Appointment</button>
+                {%endif%}
+                {%endfor%}
+            </div>
+        </div><hr>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Doctor's Name</th>
+                    <th>Purpose</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for z in allappt%}
+                <tr>
+                    <td>{{z.date_of_appt}}</td>
+                    <td>{{z.apt_staff_deets.fname}} {{z.apt_staff_deets.lname}}</td>
+                    <td>{{z.purpose}}</td>
+                    <td>{{z.status}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div><hr>
+    <div class="col-12">
+        <!-- Surgeries -->
+        <h4>Surgeries</h4>
+        <div>
+            <p id='surgfeedbackrsp'></p>
+            <p id='surg_updatefeedbackrsp'></p>
+        </div>
+        <div class='col-6'>
+            {%set onlinestaff=session.get('staff_id')%}
+            {% if onlinestaff==None or session.get("staff_role")!=1%}
+            <button type='button' class="btn btn-secondary" data-bs-target='#surgeryschedule' data-bs-toggle='modal' disabled>Schedule Surgery</button>
+            {%else%}
+            <button type='button' class="btn btn-secondary" data-bs-target='#surgeryschedule' data-bs-toggle='modal'>Schedule Surgery</button>
+            {%endif%}
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Date</th>
+                    <th>Procedure</th>
+                    <th>Hospital</th>
+                    <th>Surgeon</th>
+                    <th>Test Result</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in surgery%}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{s.date_of_surg}}</td>
+                    <td>{{s.procedure_name}}</td>
+                    <td>{{s.hospital_deets.hosp_name}}</td>
+                    <td>{{s.surgeon_deets.fname}} {{s.surgeon_deets.lname}}</td>
+                    {% if s.test_results == None%}
+                    <td><a href='#update'>Upload Result Sheet</a></td>
+                    <td>{{s.status}}</td>
+                    {%else%}
+                    <td><a href='/downloadfile/{{s.test_results}}' download>Download Result Sheet</a></td>
+                    <td>{{s.status}}</td>
+                    {%endif%}
+                    {% if onlinestaff==None or session.get('staff_id') != s.lead_surgeon_staff_id or s.status!='Pending'%}
+                    <td><button type='button' class='btn btn-info btn-sm' data-bs-target='#update_surgery_info' data-bs-toggle='modal' disabled>Update</button></td>
+                    {%else%}
+                    <td><button type='button' id='update' class='btn btn-info btn-sm' data-bs-target='#update_surgery_info' data-bs-toggle='modal'>Update</button></td>
+                    {%endif%}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div><hr>
+<div class="row">
+    <!--This is for patient case history and Doc sheets-->
+    <div class="col">
+        <h4>Patient Cases History</h4>
+        {%for p in thispatient%}
+        {%if p.patient_hospitle_id == session.get('staff_hospid') and session.get("staff_role")==1%}
+        <button type='button' class="btn btn-secondary" data-bs-target='#new_case' data-bs-toggle='modal'>Add new case</button>
+        {%else%}
+        <button type='button' class="btn btn-secondary" data-bs-target='#new_case' data-bs-toggle='modal' disabled>Add new case</button>
+        {%endif%}
+        {%endfor%}
+         
+        <div><p id='feedbackrsp'></p</div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Diagnosis</th>
+                    <th>Doctor</th>
+                    <th>Read Report</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for c in consults%}
+                <tr>
+                    <td>{{c.conappt.date_of_appt}}</td>
+                    <td>{{c.diagnosis}}</td>
+                    <td>Dr. {{c.con_staff.fname}} {{c.con_staff.lname}}</td>
+                    <td><a type="button" href="/cases/{{c.consult_id}}">Report</a></td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div><hr>
+
+
+<div class="row">
+    <div class="col">
+        <!-- Cross Hospital Treatment table -->
+        
+        <div class="row">
+            <div class="col">
+                <h4>Cross Hospital Treatment</h4>
+            </div>
+
+            <div><p id='CHTfeedbackrsp'></p</div>
+
+
+            <div class="col-md-6">
+                {%for p in thispatient%}
+                {%if p.patient_hospitle_id == session.get('staff_hospid') or session.get("staff_role")!=1%}
+                <button type='button' class="btn btn-secondary" data-bs-target='#CHT' data-bs-toggle='modal' disabled>Cross Hospital Case</button>
+                {%else%}
+                <button type='button' class="btn btn-secondary" data-bs-target='#CHT' data-bs-toggle='modal'>Cross Hospital Case</button>
+                {%endif%}
+                {%endfor%}
+            </div>
+        </div><hr>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Hospital</th>
+                    <th>Department</th>
+                    <th>Doctor Name</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for t in treatment%}
+                <tr>
+                    <td>{{t.cht_date_received}}</td>
+                    <td>{{t.cht_hosp.hosp_name}}</td>
+                    <td>{{t.cht_dept.dept_name}}</td>
+                    <td>{{t.cht_staff.fname}} {{t.cht_staff.lname}}</td>
+                    <td>{{t.patient_complain}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div><hr>
+{%endblock content%}
+
+
+
+{%block casesmodal%}
+
+<!--New Case modal-->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="new_case" tabindex="-1" aria-labelledby="new_case_report" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="new_case_report">New Case</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" name="staff" id='Stf_ID' class="form-control" value="{{session.get('staff_id')}}">
+                    <div class="mb-3">
+                        <label for="pcomplain" class="form-label">Patient Complaint</label>
+                        <textarea type='text' id='pcomplain' class="form-control" required></textarea>
+                    </div>
+                    <div class='mb-3'>
+                        <label for="diagnose" class="form-label">Doctor Diagnosis</label>
+                        <textarea  type='text' id='diagnose' class="form-control" required></textarea>
+                    </div>
+                    <div class='mb-3'>
+                        <label for="actionplan" class="form-label">Course of Action</label>
+                        <textarea type='text' id='actionplan' class="form-control" required></textarea>
+                    </div>
+
+                    {%for sick in thispatient%}
+                    <input type="hidden" name="patient" id='PID' class="form-control" value="{{sick.patient_id}}">
+                    {%endfor%}
+
+                    <input type="hidden" name="csrf_token" id='csrf' class="form-control" value="{{csrf_token()}}">
+
+                    <button type='button' id='addpatientcase' class='btn btn-secondary'>Add case</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock casesmodal%}
+
+
+{%block appointments%}
+<!--New Apt modal-->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="new_appt" tabindex="-1" aria-labelledby="new_patient_appointment" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="new_patient_appointment">New Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action='/add_appts/' method='post'>
+                    {%for p in thispatient%}
+
+                    <input type='hidden' name='patientID' id="patientID" class='form-control' value="{{p.patient_id}}">
+
+                    <div class="mb-3">
+                        <label for="patient_number" class="form-label">Patient Number</label>
+                        <input type='text' id='patient_number' class='form-control' name='patientnum' value="{{p.patient_number}}" readonly>
+                    </div>
+                    <div class='mb-3'>
+                        <label for="scheduled_date" class="form-label">Scheduled Date of Appointment</label>
+                        <input type='date' id='scheduled_date' class='form-control' name='scheduled_date' required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="hospid" class="form-label">Hospital of Appointment</label>
+                        <select id="hospid" name="hosp_id" class="form-select" required>
+                        {%for i in healthfacility%}
+                        <option value="{{i.hosp_id}}">{{i.hosp_name}}</option>
+                        {%endfor%}
+                        </select>
+                    </div>
+                    <div class='mb-3'>
+                        <label for="dept_of_apt" class="form-label">Department of Appointment</label>
+                        <select name='deptofappt' id='deptofappt' class='form-select'>
+                            {%for d in staffdeets%}
+                            <option value='{{d.staff_dept.dept_id}}'>{{d.staff_dept.dept_name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    
+                    <div class='mb-3'>
+                        {#<label for="doc" class="form-label">Doctor Number</label>#}
+                        {%for staff in staffdeets%}
+                        <input type='hidden' id='doc' class='form-control' name='doc' value="{{staff.staff_number}}" readonly>
+                        {%endfor%}
+                    </div>
+
+                    <div class='mb-3'>
+                        <label for="reason" class="form-label">Purpose</label>
+                        <input type='text' id='reason' class='form-control' name='reason' required>
+                    </div>
+
+                    <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+
+                    <button type='submit' class='btn btn-secondary' onclick="appointment(event)">Add Appointment</button>
+                    {%endfor%}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock appointments%}
+
+
+{%block CHT%}
+<!--New CHT modal-->
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="CHT" tabindex="-1" aria-labelledby="new_patient_CHT" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="new_patient_CHT">Cross Hospital Treatment Case</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {%for p in thispatient%}
+
+                    <input type='hidden' name='CHTpatientID' id='CHTpatientID' class='form-control' value="{{p.patient_id}}">
+
+                    <div class="mb-3">
+                        <label for="patient_number" class="form-label">Patient Number</label>
+                        <input type='text' id='CHT_patient_number' class='form-control' name='patientnum' value="{{p.patient_number}}" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="CHT_hospid" class="form-label">Hospital of Care</label>
+                        <select id="CHT_hospid" name="hosp_id" class="form-select" required>
+                        {%for h in healthfacility%}
+                        <option value="{{h.hosp_id}}">{{h.hosp_name}}</option>
+                        {%endfor%}
+                        </select>
+                    </div>
+
+                    {#<div class='mb-3'>
+                        <label for="CHT_dept" class="form-label">Department of Care</label>
+                        <select name='CHTdeptofappt' id='CHT_dept' class='form-select'>
+                            {%for d in hspdpt%}
+                            <option value='{{d.facility_dpt_id}}'>{{d.facility.dept_name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>#}
+
+
+                    <div class='mb-3'>
+                        {#<label for="CHTdoc" class="form-label">Doctor ID</label>#}
+                        <input type='hidden' id='CHTdoc' class='form-control' name='doc' value='{{session.get("staff_id")}}'>
+                    </div>
+
+                    
+                    <div class="mb-3">
+                        <label for="CHT_pcomplain" class="form-label">Patient Complaint</label>
+                        <textarea type='text' id='CHT_pcomplain' class="form-control" required></textarea>
+                    </div>
+                    <div class='mb-3'>
+                        <label for="CHT_diagnose" class="form-label">Doctor Diagnosis</label>
+                        <textarea  type='text' id='CHT_diagnose' class="form-control" required></textarea>
+                    </div>
+                    <div class='mb-3'>
+                        <label for="CHT_actionplan" class="form-label">Course of Action</label>
+                        <textarea type='text' id='CHT_actionplan' class="form-control" required></textarea>
+                    </div>
+
+                    <input type="hidden" name="csrf_token" id='cht_csrf' class="form-control" value="{{csrf_token()}}">
+
+                    <button type='button' class='btn btn-secondary' id="btnCHT">Add Cross Hospital Case</button>
+                    {%endfor%}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock CHT%}
+
+
+
+{%block surgery%}
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="surgeryschedule" tabindex="-1" aria-labelledby="surgeries" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="surgeries">New Surgery</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    {%for p in thispatient%}
+
+                    <input type='hidden' name='surg_patientID' id="surgpatientID" class='form-control' value="{{p.patient_id}}">
+
+                    <div class="mb-3">
+                        <label for="surgpatient_number" class="form-label">Patient Number</label>
+                        <input type='text' id='surgpatient_number' class='form-control' name='surgpatientnum' value="{{p.patient_number}}" readonly>
+                    </div>
+                    <div class='mb-3'>
+                        <label for="surgscheduled_date" class="form-label">Scheduled Date of Surgery</label>
+                        <input type='date' id='surgscheduled_date' class='form-control' name='surgscheduled_date' required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="surghospid" class="form-label">Hospital</label>
+                        <select id="surghospid" name="surghosp_id" class="form-select" required>
+                        {%for i in healthfacility%}
+                        <option value="{{i.hosp_id}}">{{i.hosp_name}}</option>
+                        {%endfor%}
+                        </select>
+                    </div>
+                    <div class='mb-3'>
+                        <label for="surgdeptofappt" class="form-label">Department</label>
+                        <select name='deptofappt' id='surgdeptofappt' class='form-select'>
+                            {%for d in staffdeets%}
+                            <option value='{{d.staff_dept.dept_id}}'>{{d.staff_dept.dept_name}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    
+                    <div class='mb-3'>
+                        {#<label for="doc" class="form-label">Doctor Number</label>#}
+                        {%for staff in staffdeets%}
+                        <input type='hidden' id='surgdoc' class='form-control' name='surgdoc' value="{{staff.staff_number}}" readonly>
+                        {%endfor%}
+                    </div>
+
+                    <div class='mb-3'>
+                        <label for="surgreason" class="form-label">Procedure</label>
+                        <input type='text' id='surgreason' class='form-control' name='surgreason' required>
+                    </div>
+
+                    <input type="hidden" name="csrf_token" class="form-control" id="csrf_token" value="{{csrf_token()}}">
+
+                    <button type='button' class='btn btn-secondary' id="btnaddsurgery">Add Surgery</button>
+                    {%endfor%}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock surgery%}
+
+
+
+{%block updatesurgery%}
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="update_surgery_info" tabindex="-1" aria-labelledby="surgeries" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="surgeries">Update Surgery</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id='updateSURG' enctype="multipart/form-data">
+                    {%for surg in surgery%}
+
+                    <div class="mb-3">
+                        <label class="form-label"><b>Upload Test Result</b></label>
+                        <input type="file" id='uploaded' class="form-control" name="test_sheet" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6>Attendance</h6>
+                        <input type="radio" class="form-check-input" value='Present' name="surgical_status" required>
+                        <label class="form-check-label">Present</label>
+
+                        <input type="radio" class="form-check-input" value='Missed' name="surgical_status" required>
+                        <label class="form-check-label">Missed</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="hidden" class="form-control" id='surgeryid' name="surgery_id" value="{{surg.surg_id}}" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="hidden" class="form-control" id='patient_surg_id' name="patient" value="{{surg.surg_patient_id}}" readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="hidden" name="csrf_token" class="form-control" id="csrf_token" value="{{csrf_token()}}">
+                    </div>
+                    <button type="button" class='btn btn-success btn-sm' id='updatesurgerybtn'>Upload</button>
+                    {%endfor%}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock updatesurgery%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%block scripts%}
+<script type= "text/javascript" language='javascript'>
+
+{#Updating Surgery#}
+$('#updatesurgerybtn').click(function(){
+    var form = document.getElementById('updateSURG')
+    var formdata= new FormData(form)
+
+    $.ajax({
+        url:"/updatesurgery/",
+        data:formdata,
+        dataType:"text",
+        type:"post",
+        cache:false,
+        processData:false,
+        contentType:false,
+        success:function(rsp){
+            if (rsp == 'Update Successful'){
+                $('#surg_updatefeedbackrsp').addClass('alert alert-success')
+                $('#surg_updatefeedbackrsp').html(rsp)
+                $('#updatesurgerybtn').prop('disabled',true)
+            }
+            else{
+                $('#surg_updatefeedbackrsp').removeClass('alert alert-success')
+                $('#surg_updatefeedbackrsp').addClass('alert alert-danger')
+                $('#surg_updatefeedbackrsp').html(rsp)
+                $('#updatesurgerybtn').prop('disabled',true)
+            }
+                
+        },  
+        error:function(msg){
+            console.log(msg)
+        }
+    })
+})
+
+
+
+function appointment(e){
+    var id_patient=document.getElementById('patientID').value
+    var num_patient=document.getElementById('patient_number').value
+    var scheduled_date=document.getElementById('scheduled_date').value
+    var hospital=document.getElementById('hospid').value
+    var dept=document.getElementById('deptofappt').value
+    var doc=document.getElementById('doc').value
+    var reason=document.getElementById('reason').value
+    if(id_patient == "" ||num_patient == "" ||scheduled_date==""|| hospital==""||dept==""||doc==""||reason==""){
+        e.preventDefault();
+        alert("Please fill out all fields");
+    }
+}
+
+
+{#Surgery Validation Function#}
+$('#btnaddsurgery').click(function(){
+    var data2send={'patient_for_surg':$('#surgpatientID').val(), 'date_for_surg':$('#surgscheduled_date').val(), 'surgeon':$('#surgdoc').val(),'hospital_for_surg':$('#surghospid').val(),'dept_for_surg':$('#surgdeptofappt').val(),'procedurename':$('#surgreason').val(), 'csrf_token':$("#csrf_token").val()}  
+
+    $.ajax({
+        url:"/schedule_surgery/",
+        data:data2send,
+        dataType:"text",
+        type:"post",
+        beforeSend:function(){
+            if( $('#surgpatientID').val()=="" || $('#surgscheduled_date').val()=="" || $('#surgdoc').val()=="" || $('#surgreason').val()==""){
+                alert("Please fill out all fields")
+                return false;
+            }
+        },
+        success:function(rsp){
+            if (rsp == 'Successfully added surgery'){
+                $('#surgfeedbackrsp').addClass('alert alert-success')
+                $('#surgfeedbackrsp').html(rsp)
+                $('#btnaddsurgery').prop('disabled',true)
+            }
+            else if (rsp == 'Couldn\'t register surgery. Something went wrong. Please try again' || rsp == 'Something went wrong. No record of staff'|| rsp=='Admin can\'t register a new surgery'){
+                $('#surgfeedbackrsp').removeClass('alert alert-success')
+                $('#surgfeedbackrsp').addClass('alert alert-danger')
+                $('#surgfeedbackrsp').html(rsp)
+                $('#btnaddsurgery').prop('disabled',true)
+            }
+                
+        },  
+        error:function(msg){
+            console.log(msg)
+        }
+    })
+})
+
+
+
+{#Add case ajax#}
+$('#addpatientcase').click(function(){
+    var data2send={'pcomplaint':$('#pcomplain').val(), 'diagnose':$('#diagnose').val(), 'actionplan':$('#actionplan').val(), 'staff_id':$('#Stf_ID').val(), 'csrf_token':$('#csrf').val(), 'patient':$('#PID').val()}
+    $.ajax({
+        url:"/patientcase/",
+        data:data2send,
+        dataType:"text",
+        type:"post",
+        beforeSend:function(){
+            if($('#pcomplain').val()==""||$('#diagnose').val()==""||$('#actionplan').val()==""){
+                alert("Please fill out all fields")
+                return false;
+            }
+        },
+        success:function(rsp){
+            if (rsp == 'Case Successfully Added'){
+                $('#feedbackrsp').addClass('alert alert-success')
+                $('#feedbackrsp').html(rsp)
+                $('#addpatientcase').prop('disabled',true)
+            }
+            else if (rsp == 'Not for Admin' || rsp == 'Admin not allowed'){
+                $('#feedbackrsp').removeClass('alert alert-success')
+                $('#feedbackrsp').addClass('alert alert-danger')
+                $('#feedbackrsp').html(rsp)
+                $('#addpatientcase').prop('disabled',true)
+            }
+            
+        },  
+        error:function(msg){
+            console.log(msg)
+        }
+    })
+})
+
+{#Cross Hospital Case Ajax#}
+$('#btnCHT').click(function(){
+
+    var data2send={'p_cht_complaint':$('#CHT_pcomplain').val(), 'cht_diagnose':$('#CHT_diagnose').val(), 'cht_actionplan':$('#CHT_actionplan').val(), 'cht_staff_id':$('#CHTdoc').val(), 'csrf_token':$('#cht_csrf').val(), 'cht_patient':$('#CHTpatientID').val(), 'cht_hospital':$('#CHT_hospid').val()}
+
+    $.ajax({
+        url:"/CHTcase/",
+        data:data2send,
+        dataType:"text",
+        type:"post",
+        beforeSend:function(){},
+        success:function(rsp){
+            
+
+            if (rsp == 'Case Successfully Added'){
+                $('#CHTfeedbackrsp').addClass('alert alert-success')
+                $('#CHTfeedbackrsp').html(rsp)
+                $('#btnCHT').prop('disabled',true)
+            }
+            else if (rsp == 'No record of this staff found' || rsp == 'Kindly use the right section' || rsp=='Sorry, this section is for out patients only. Kindly use the right section'){
+                $('#CHTfeedbackrsp').removeClass('alert alert-success')
+                $('#CHTfeedbackrsp').addClass('alert alert-danger')
+                $('#CHTfeedbackrsp').html(rsp)
+                $('#btnCHT').prop('disabled',true)
+            }
+            
+        },  
+        error:function(msg){
+            console.log(msg)
+        }
+    })
+})
+</script>
+{%endblock scripts%}

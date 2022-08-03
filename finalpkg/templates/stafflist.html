@@ -1,0 +1,105 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Staff List
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--All Staff-->
+<div id="allStaff">
+    <div class='row'>
+        <div class="col-12 mb-3">
+            <h2>Staff</h2>
+            {#<button type="button" class="btn btn-secondary btn-sm" id="physicians">Doctors</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="nurses">Nurses</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="lab_sci">Lab Scientists</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="pharm">Pharmacists</button>#}
+        </div>
+        <div class="col-12 mb-3">
+            <a href="/addstaff/" class="btn btn-secondary btn-sm">Add New Staff</a>
+        </div>
+        <div class="col-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Staff Number</th>
+                        <th>Full Name</th>
+                        <th>Department</th>
+                        {#<th>Profile</th>#}
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for a in totalstaff%}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{a.staff_number}}</td>
+                        <td>{{a.fname}} {{a.lname}}</td>
+                        <td>{{a.staffdpt.dept_name}}</td>
+                        {#<td><a href="#" style="color:#586f7c;">View Profile</a></td>#}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+{#$("#physicians").click(function(){
+    $('.Nurses').hide();
+    $('.lab').hide();
+    $('.Rx').hide();
+    $('.doctor').show();
+})
+$("#lab_sci").click(function(){
+    $('.Nurses').hide();
+    $('.lab').show();
+    $('.Rx').hide();
+    $('.doctor').hide();
+})
+$("#nurses").click(function(){
+    $('.Nurses').show();
+    $('.lab').hide();
+    $('.Rx').hide();
+    $('.doctor').hide();
+})
+$("#guards").click(function(){
+    $('.Nurses').hide();
+    $('.lab').hide();
+    $('.Rx').hide();
+    $('.doctor').hide();
+})
+$("#cleaners").click(function(){
+    $('.Nurses').hide();
+    $('.lab').hide();
+    $('.Rx').hide();
+    $('.doctor').hide();
+})
+$("#pharm").click(function(){
+    $('.Nurses').hide();
+    $('.lab').hide();
+    $('.Rx').show();
+    $('.doctor').hide();
+})#}
+{%endblock unique_JQ%}

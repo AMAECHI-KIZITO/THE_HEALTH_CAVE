@@ -1,0 +1,54 @@
+{%extends "dashboard.html"%}
+{%block title%}
+All Staff Search
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<div class="row">
+    <div class="col-10 offset-1 mt-5">
+        <h3>Connect with any staff affiliated with THE HEALTH CAVE.</h3>
+        {%set emptyfield=get_flashed_messages(category_filter='no_staff_found')%}
+        {%for x in emptyfield%}
+        <div class='alert alert-danger'>{{x}}</div>
+        {%endfor%}
+
+        {%set notfound=get_flashed_messages(category_filter='no_record_found')%}
+        {%for x in notfound%}
+        <div class='alert alert-danger'>{{x}}</div>
+        {%endfor%}
+        <form class="row row-cols-2 mt-5" action='/adminsearch/' method='post'>
+            <div>
+                <input id='staffno' name='staffno' type='text' class="form-control" placeholder="Enter Staff Number or Staff Name" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-warning">Search</button>
+            </div>
+
+            <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+        </form>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+{%endblock unique_JQ%}

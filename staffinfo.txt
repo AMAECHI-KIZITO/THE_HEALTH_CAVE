@@ -1,0 +1,4 @@
+Staff number is MCHs-2022-146914, default password is 0000, staff email is psalm@motherandchildhospital.com 
+Staff number is MCHs-2022-386003, default password is 0000, staff email is mercyajala@motherandchildclinic.com 
+Staff number is MCHs-2022-650489, default password is 0000, staff email is judith@motherandchildclinic.com 
+Staff number is CPHs-2022-472854, default password is 0000, staff email is Makinde@carepointhospital.com 

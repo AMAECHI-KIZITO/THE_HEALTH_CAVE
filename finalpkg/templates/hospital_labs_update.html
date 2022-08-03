@@ -1,0 +1,70 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Register Hospital Laboratories
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--Update Hospital Laboratories-->
+
+<div id="add_dept">
+    <div class='row'>
+        <div class="col-12">
+            <h2>Register Your Hospital's Laboratories</h2>
+            
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-12">
+            <form action='/reg_hospital_labs/' method='post'>
+                <div class="mt-3">
+                    <h5>Add Laboratories</h5>
+                    {%set done =get_flashed_messages(category_filter='added_labs')%}
+                    {%for oops in done%}
+                    <div class="alert alert-success">{{oops}}</div>
+                    {%endfor%}
+
+                    {%set alreadyexisting =get_flashed_messages(category_filter='lab_not_added')%}
+                    {%for z in alreadyexisting%}
+                    <div class="alert alert-danger">{{z}}</div>
+                    {%endfor%}
+
+                    
+                    {%for x in labs%}
+                    <input type='checkbox' class='form-check-input all' name='h_lab' value="{{x.lab_id}}">
+                    <label class='form-check-label'>{{x.lab_name}}</label><br>
+                    {%endfor%}
+
+                    
+                    <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+                </div>
+                <button type="submit" id="btnupdate" class='btn btn-warning mt-4 col-md-1 offset-md-5'>Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+
+{#$('#btnupdate').prop("disabled",true)#}
+{%endblock unique_JQ%}

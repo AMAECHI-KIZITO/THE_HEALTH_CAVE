@@ -1,0 +1,122 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Gynecology Department
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+    table{
+        font-size: 10px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<!--Gyne Dept-->
+<div id="dept_gyne">
+    <div class='row'>
+        <div class="col-12 mb-3">
+            <div class="row pt-3">
+                <div class="col-6"><h2>Department of Obstetrics and Gyneacology</h2></div>
+            </div>
+        </div>
+        <!--Dept Information-->
+        <div class="col-12">
+            <p>The hospital's Obstetrics and Gynecology department is a busy department that ensures proper patient care and safe delivery by using evidence-based practices in a safe and comfortable working environment. The department's main primary processes include research, training and services. The department is divided into several sub-units, including:
+            <ul>
+                <li>Oncology and Pathological Unit</li>
+                <li>Reproductive Endocrinology and Fertility Regulation</li>
+                <li>Ultrasound and Fetal Medicine Unit</li>
+                <li>Adolescent Gyneacological Disorders Unit</li>
+            </ul></p>
+        </div>
+        <div class="col-12">
+            <h3>Departmental Email</h3>
+            <p>gynecol@lasuth.gov.ng</p>
+        </div>
+        <div class="col-12">
+            <h3>Departmental Staff Details</h3>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Full Name</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Dr. Joseph Olamide</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Prof. Rosemary Amaechi</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Prof. Bosede Adeniran</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Dr. Sunday Agbro</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Dr. Helen Tomisin</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Dr. Adegboye Omololu</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Dr. Christian Madu</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Mr Obot Jeremiah</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Mrs Oyebanji Samuel</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Mrs. Sumonu Yinka</td>
+                        <td><a href="#" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+
+{%endblock unique_JQ%}

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>{%block title%}Admin Dashboard{%endblock title%}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='font/css/all.css')}}">
+		<style type="text/css">
+            {%block styling%}
+            .dashboard{
+                background-color: #586f7c;
+                color: #fff;
+            }
+
+
+            @media screen and (max-width:800px){
+                .navbar-toggler{
+                    display: none;
+                }
+            }
+            @media screen and (max-width:425px){
+                #abimbola{
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+            {%endblock styling%}
+		</style>
+	</head>
+
+
+	<body>		
+		<div class="container-fluid">
+            <!--navigation-->
+            <div class="row sticky-top ">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand brandname" href="/THChomepage/"><img src="{{url_for('static',filename='images/use_this.png')}}" alt="THC logo" width="100px"> </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <button type="button" class="btn btn-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#menu">Menu</button>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    
+                                </ul>
+                                {#<button type="button" class="btn btn-secondary display-none" data-bs-toggle="offcanvas" data-bs-target="#menu">Menu</button>#}
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!--Dashboard side-->
+            <div class="row dashboard align-items-center">
+                <div class="col-md-6">
+                    <h2>Patient Profile</h2>
+                </div>
+                {%block patient_only%}
+                <div class="col-md-6 d-md-block">
+                    <p class="text-end"><i class="fa-solid fa-house"></i><span>/<a class="text-light">Patient Profile</a></span></p>
+                </div>
+                {%endblock patient_only%}
+            </div>
+
+            <!--Main side-->
+            {%block content%}
+
+            {%endblock content%}
+        </div>
+
+        {%block casesmodal%}
+        {%endblock casesmodal%}
+
+
+        {%block appointments%}
+        {%endblock appointments%}
+
+        {%block CHT%}
+        {%endblock CHT%}
+
+        {%block surgery%}
+        {%endblock surgery%}
+        
+        {%block updatesurgery%}
+        {%endblock updatesurgery%}
+
+
+
+
+        {%autoescape false%}
+		<script type="text/javascript" src="{{url_for('static',filename='jquery/jquery.min.js')}}"></script>
+
+        {%block scripts%}
+        {%endblock scripts%}
+
+		<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.bundle.js')}}"></script>	
+        
+        {%endautoescape%}
+	</body>
+</html>

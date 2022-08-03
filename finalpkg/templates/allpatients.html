@@ -1,0 +1,84 @@
+{%extends "dashboard.html"%}
+{%block title%}
+Patients List
+{%endblock title%}
+
+{%block styling%}
+.dashboard{
+    background-color: #586f7c;
+    color: #fff;
+}
+
+
+@media screen and (max-width:800px){
+    .navbar-toggler{
+        display: none;
+    }
+}
+@media screen and (max-width:425px){
+    #abimbola{
+        width: 200px;
+        height: 200px;
+    }
+    table{
+        font-size: 10px;
+    }
+}
+{%endblock styling%}
+
+{%block content%}
+<div id="allPatients">
+    <div class='row'>
+        <div class="col-12 mb-3">
+            <h2>Patients List</h2>
+            {#<a href="/allpatients/" style="text-decoration: none;color:#fff" class="btn btn-secondary btn-sm">All</a>
+            <button type="button" class="btn btn-secondary btn-sm" id="lagosPatients">Lagos</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="enuguPatients">Enugu</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="deltaPatients">Delta</button>#}
+        </div>
+        <!--Patients Table-->
+        <div class="col-12">
+            <table class="table table-danger table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Patient ID</th>
+                        <th>Full Name</th>
+                        <th>Address</th>
+                        <th>Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for p in allp%}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{p.patient_number}}</td>
+                        <td>{{p.firstname}} {{p.lname}} {{p.othername}}</td>
+                        <td>{{p.patient_address}}</td>
+                        <td><a href="/patientprofile/{{p.patient_number}}" style="color:#586f7c;">View Profile</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+{%block unique_JQ%}
+{#$('#deltaPatients').click(function(){
+    $('.lagos').hide();
+    $('.enugu').hide();
+    $('.delta').show();
+})
+$('#enuguPatients').click(function(){
+    $('.lagos').hide();
+    $('.enugu').show();
+    $('.delta').hide();
+})
+$('#lagosPatients').click(function(){
+    $('.lagos').show();
+    $('.enugu').hide();
+    $('.delta').hide();
+})#}
+{%endblock unique_JQ%}

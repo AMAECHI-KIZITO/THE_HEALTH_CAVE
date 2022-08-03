@@ -1,0 +1,113 @@
+
+{%extends 'dashboard.html'%}
+
+{%block title%}
+The Health Cave||Add Staff
+{%endblock title%}
+
+
+{%block content%}
+<!--Add Staff-->
+<div id="newStaff">
+    <div class="row">
+        <div class="col-12">
+            <h2>Basic Information</h2>
+            <p>Fields marked * are important</p>
+            <form action="/submitnewstaff/" method="post">
+                {#This is for successful reg#}
+                {%set regstatus=get_flashed_messages(category_filter="newstaff")%}
+                {%for i in regstatus%}
+                <div class="alert alert-success">{{i}}</div>
+                {%endfor%}
+
+                {#This is for failed reg#}
+                {%set failedreg=get_flashed_messages(category_filter="notregistered")%}
+                {%for f in failedreg%}
+                <div class="alert alert-danger">{{f}}</div>
+                {%endfor%}
+
+                
+                <div class="mb-3">
+                    <input type="text" id="first_Name" name="firstname" class="form-control" placeholder="First Name*" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="last_Name" name="lastname" class="form-control" placeholder="Last Name*" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="other_Name" name="othername" class="form-control" placeholder="Other Name*">
+                </div>
+                <div class="mb-3">
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter Your Email*">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for='DOB'>Date of Birth</label>
+                    <input type="date" id="DOB" name="DOB" class="form-control" placeholder="Date of Birth(YYYY-MM-DD)*" required>
+                </div>
+                <div class="mb-3">
+                    <select id="hospid" name="hosp_id" class="form-select" required>
+                    <option value="#">Select your instituition</option>
+                    {%for c in clinics%}
+                    <option value="{{c.hosp_id}}">{{c.hosp_name}}</option>
+                    {%endfor%}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <select id="role" name="role" class="form-select" required>
+                        <option value="#">Select your Role</option>
+                        {%for r in role%}
+                        <option value="{{r.role_id}}">{{r.role_name}}</option>
+                        {%endfor%}
+                        </select>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone*" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="address" name="address" class="form-control" placeholder="Address*" required>
+                </div>
+                <div class="mb-3">
+                    <select id="country" name="country" class="form-select" required>
+                        <option value="#">Choose your country</option>
+                        {%for x in nation%}
+                        <option value="{{x.country_id}}">{{x.country_name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <select id="state" name="state" class="form-select" required >
+                        <option value="#">Select your state of origin</option>
+                        {%for s in naijastates%}
+                        <option value="{{s.state_id}}">{{s.state_name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <select id="wing" name="wing" class="form-select" required>
+                        <option value="#">Select your department</option>
+                        {%for d in units%}
+                        <option value="{{d.facility.dept_id}}">{{d.facility.dept_name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="mb-3 dodge">
+                    <h6>Gender</h6>
+                    <input id="gender1" class="form-check-input" name="gender" value="male" type="radio" required>
+                    <label class="form-check-label">Male</label>
+                    <input id="gender2" class="form-check-input" name="gender" value="female" type="radio" required>
+                    <label class="form-check-label">Female</label>
+                </div>
+
+                <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+                <button type="submit" class="btn btn-primary" id="addStaff">Submit</button>
+                <button type="reset" class="btn btn-danger" id="cancelStaff">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock content%}
+
+
+
+{%block unique_JQ%}
+{%endblock unique_JQ%}
+  

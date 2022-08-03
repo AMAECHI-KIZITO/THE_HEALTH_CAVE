@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>{%block error_title%}Error{%endblock error_title%}</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='font/css/all.css')}}">
+		<style type="text/css">
+		</style>
+	</head>
+
+
+	<body>		
+		<div class="container-fluid">
+            <!--navigation-->
+            <div class="row sticky-top ">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand brandname" href="/homepage/"><img src="{{url_for('static',filename='images/use_this.png')}}" alt="THC logo" width="100px"> </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <button type="button" class="btn btn-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#menu">Menu</button>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="healthcavehome.html">HOME</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="about.html">ABOUT</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="THClogin.html">LOGIN</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="about.html">BOOK DEMO</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#range-of-clients">CLIENTS</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        PRODUCTS
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a class="dropdown-item" href="#">Appointment Reminders</a></li>
+                                            <li><a class="dropdown-item" href="#">Telehealth</a></li>
+                                            <li><a class="dropdown-item" href="frontend.html">Digital Registration</a></li>
+                                            <li><a class="dropdown-item" href="backend.html">Patients Payments</a></li>
+                                            <li><a class="dropdown-item" href="#">Patient Reviews</a></li>
+                                            <li><a class="dropdown-item" href="#">Healthcare Growth Optimization</a></li>
+                                        </ul>
+                                    </li> -->
+                                </ul>
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="offcanvas" data-bs-target="#menu">Menu</button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            {%block mistake%}
+            {%endblock mistake%}
+        </div>
+	</body>
+</html>

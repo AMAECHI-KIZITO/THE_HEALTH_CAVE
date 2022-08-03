@@ -1,0 +1,24 @@
+{%extends "dashboard.html"%}
+
+{%block content%}
+<div class="row mt-5">
+    <div class="col-md-6">
+        <div style="background-color:red;">
+            <h2 class="text-center text-light">{{totalstaff}}</h2>
+            <h5 class="text-center text-light">Total Staff</h5>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div style="background-color:blue">
+            <h2 class="text-center text-light">{{totalpatients}}</h2>
+            <h5 class="text-center text-light">Total Patients</h5>
+        </div>
+    </div>
+    <div class="col-md-6 mt-5">
+        <div style="background-color:green">
+            <h2 class="text-center text-light">{{CHT}}</h2>
+            <h5 class="text-center text-light">Total Cross-Hospital Patients</h5>
+        </div>
+    </div>
+</div>
+{%endblock content%}

@@ -1,0 +1,42 @@
+{%extends "dashboard.html"%}
+
+{%block title%}
+Admin|Change Phone
+{%endblock%}
+
+{%block content%}
+<div class="row">
+
+    {%set phone=get_flashed_messages(category_filter="phone_changed")%}
+    {%for i in phone%}
+    <div class="alert alert-success">{{i}}</div>
+    {%endfor%}
+
+    {%set PNC=get_flashed_messages(category_filter="phone_not_changed")%}
+    {%for x in PNC%}
+    <div class="alert alert-danger">{{x}}</div>
+    {%endfor%}
+
+    <h2>Update Admin Phone Number Records</h2>
+    <div class="col-md-8 offset-md-2 mt-4">
+        <form action='/adminphonechange/' method='post'>
+            <div class="mb-3">
+                <label class="form-label" for="oldnumber">Please provide your old phone number</label>
+                <input type="text" id="oldnumber" class='form-control' name="oldnumber">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="newnumber">Please provide your new phone number</label>
+                <input type="text" id="newnumber" class='form-control' name="newnumber">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="confam_new_number">Please confirm your new phone number</label>
+                <input type="text" id="confam_new_number" class='form-control' name="confam_new_number">
+            </div>
+            <input type="hidden" name="stfff" class="form-control" value="{{session.get('admin_id')}}">
+
+            <input type="hidden" name="csrf_token" class="form-control" value="{{csrf_token()}}">
+            <button type='submit' class='btn btn-success'>Submit</button>
+        </form>
+    </div>
+</div>
+{%endblock content%}
